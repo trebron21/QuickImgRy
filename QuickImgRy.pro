@@ -1,10 +1,11 @@
 TEMPLATE = app
 
 QT += core qml quick
-CONFIG += c++11
+CONFIG += c++14
 
 SOURCES += main.cpp \
-    logviewmodel.cpp
+    logviewmodel.cpp \
+    fileio.cpp
 
 RESOURCES += qml.qrc
 
@@ -15,11 +16,12 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/../build-libImageResizer-Desktop_Qt_5_6_0_MSVC2015_32bit-Release/release/ -llibImageResizer
-else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build-libImageResizer-Desktop_Qt_5_6_0_MSVC2015_32bit-Release/release/ -llibImageResizerd
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/../build-libImageResizer-Desktop_Qt_5_6_0_MSVC2015_32bit-Debug/debug/ -llibImageResizer
 else:unix:!macx: LIBS += -L$$PWD/../build-libImageResizer-Desktop_Qt_5_6_0_MSVC2015_32bit-Release/release/ -llibImageResizer
 
 INCLUDEPATH += $$PWD/../libImageResizer
-DEPENDPATH += $$PWD/../build-libImageResizer-Desktop_Qt_5_6_0_MSVC2015_32bit-Release/release
+#DEPENDPATH += $$PWD/../build-libImageResizer-Desktop_Qt_5_6_0_MSVC2015_32bit-Release/release
 
 HEADERS += \
-    logviewmodel.h
+    logviewmodel.h \
+    fileio.h

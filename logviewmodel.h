@@ -2,6 +2,8 @@
 #define LOGVIEWMODEL_H
 
 #include <QAbstractTableModel>
+#include <QBrush>
+#include <QDebug>
 
 class Log
 {
@@ -27,28 +29,23 @@ class LogViewModel : public QAbstractTableModel
     public:
         enum LogViewRoles {
             TypeRole = Qt::UserRole + 1,
-            SizeRole
+            SizeRole,
+            BgRole
         };
 
-        LogViewModel(QObject *parent = 0);
+        LogViewModel(QObject * parent = 0);
 
         virtual QHash<int, QByteArray> roleNames() const override;
 
         // QAbstractItemModel boilerplate
-        QVariant data(const QModelIndex &index, int role) const override
-        {
-            if (index.row() < 0 || index.row() >= m_logQueue.count())
-                    return QVariant();
+        QVariant data(const QModelIndex &index, int role = Qt::DisplayRole) const override;
 
-                const Log &log = m_logQueue[index.row()];
-                if (role == TypeRole)
-                    return log.getMessage();
-                else if (role == SizeRole)
-                    return log.getId();
-                return QVariant();
-        }
+        bool setData(const QModelIndex & index, const QVariant & value, int role = Qt::EditRole) override;
+
+        bool insertRows(int position, int rows, const QModelIndex &index) override;
 
         Qt::ItemFlags flags(const QModelIndex &index) const override { return index.flags(); }
+
         QVariant headerData(int section, Qt::Orientation orientation,
                             int role = Qt::DisplayRole) const override { return 0; }
 
@@ -68,17 +65,14 @@ class LogViewModel : public QAbstractTableModel
 
         int columnCount(const QModelIndex &parent = QModelIndex()) const override
         {
+            Q_UNUSED(parent);
             return 2;
         }
 
-        void appendLog(Log const & log)
-        {
-            beginInsertRows(QModelIndex(), rowCount(), rowCount());
-            m_logQueue << log;
-            endInsertRows();
-        }
+        void appendLog(Log const & log);
 
-        Q_INVOKABLE void appendLogToView();
+
+        Q_INVOKABLE void appendLogToView(quint64 id, QString message);
 
     private:
         QList<Log> m_logQueue;
