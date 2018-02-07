@@ -5,7 +5,8 @@ CONFIG += c++14
 
 SOURCES += main.cpp \
     logviewmodel.cpp \
-    fileio.cpp
+    fileio.cpp \
+    sortfilterproxymodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -24,4 +25,5 @@ INCLUDEPATH += $$PWD/../libImageResizer
 
 HEADERS += \
     logviewmodel.h \
-    fileio.h
+    fileio.h \
+    sortfilterproxymodel.h

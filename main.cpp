@@ -1,6 +1,7 @@
 #include <imageresizer.h>
 #include <logviewmodel.h>
 #include <fileio.h>
+#include <sortfilterproxymodel.h>
 
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
@@ -14,6 +15,7 @@ int main(int argc, char *argv[])
     qmlRegisterType<ImageResizer>("imageresizer", 1, 0, "ImageResizer");
     qmlRegisterType<LogViewModel>("logviewmodel", 1, 0, "LogViewModel");
     qmlRegisterType<FileIO, 1>("fileio", 1, 0, "FileIO");
+    qmlRegisterType<SortFilterProxyModel>("SortFilterProxyModel", 0, 1, "SortFilterProxyModel");
 
     QQmlApplicationEngine engine;
     LogViewModel * logViewModel = new LogViewModel;

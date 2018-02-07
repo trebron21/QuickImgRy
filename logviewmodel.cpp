@@ -127,7 +127,7 @@ bool LogViewModel::setData(const QModelIndex & index, const QVariant & value, in
 //    m_logQueue.append(Log(2341, "setData"));
 //    emit dataChanged(index, index);
     emit dataChanged(QModelIndex(), QModelIndex());
-    qInfo() << "dataChanged";
+//    qInfo() << "dataChanged";
 
     return false;
 }
